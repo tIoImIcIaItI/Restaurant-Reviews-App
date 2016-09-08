@@ -1,0 +1,18 @@
+﻿.rating-widget {
+	/*background-color: #fff;*/
+}
+
+.rating-digit {
+	margin: 0;
+	padding: 6px; /* min-touch-target metrics are absolute in device pixels */
+}
+
+	.rating-digit.interactive {
+		color: steelblue;
+	}
+
+	.rating-digit:focus {
+		background-color: azure;
+		/*border: 1px dashed black;*/
+		outline: 2px auto -webkit-focus-ring-color;
+	}

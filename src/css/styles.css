@@ -1,0 +1,95 @@
+﻿* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0.25em 0;
+}
+
+fieldset {
+	padding: 0;
+	border: none;
+}
+
+ul, ol {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	margin: 0;
+}
+
+textarea {
+	width:100%;
+	max-width: 20em;
+}
+
+/* -------------------------------------------------------- */
+/* FILTER WIDGETS */
+.filter-option-label .fa {
+	font-size: 0.8em;
+}
+
+.venues-filter-btn {
+	margin-left: 1em;
+}
+
+/* -------------------------------------------------------- */
+/* VENUES LIST */
+.venues-filter-input {
+	margin: 0;
+}
+
+.venue-item {
+	display: inline-block;
+	padding: 1em;
+	border: 1px solid #ccc;
+	margin: 1em;
+	margin-left: 0;
+}
+
+/* -------------------------------------------------------- */
+/* VENUE CARD */
+
+.venue {
+	padding: 1em;
+	border: 1px solid #ccc;
+}
+
+.venue-name {
+	margin: 0.25em 0;
+}
+
+.venue-image {
+	display: block;
+}
+
+.venue-hours-dow {
+	display: inline-block;
+	width: 2em;
+}
+
+/* -------------------------------------------------------- */
+/* REVIEW CARD */
+
+.review-item {
+	/*margin: 1em;*/
+}
+
+.review-comments:before {
+	/*content: '“';
+	font-size: 2em;
+	margin-top: -1em;*/
+}
+
+/* -------------------------------------------------------- */
+/* MEDIA QUERIES */
+
+@media screen and (min-width:1024px) {
+
+
+}

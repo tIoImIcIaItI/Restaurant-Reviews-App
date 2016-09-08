@@ -1,0 +1,282 @@
+﻿<!doctype html>
+<html>
+<head lang="en-us">
+    <meta charset="UTF-8">
+    <title>Restraunt Reviewer</title>
+    <meta name="description" content="Udacity Restraunt Reviewer Project">
+    <meta name="author" content="David J. King">
+
+    <script src="https://use.fontawesome.com/59942f4bda.js"></script>
+    <!-- ReSharper disable once Html.PathError -->
+    <link rel="stylesheet" href="css/app.min.css" />
+</head>
+<body ng-app="app" ng-strict-di ng-controller="AppController">
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+        <h1 class="page-header-text">Restraunt Reviewer</h1>
+    </header>
+
+    <!-- VENUE FILTERS -->
+    <aside class="venues-filter-list">
+
+        <!-- FILTERS HEADER -->
+        <h2 class="venues-filter-list-header">Refine by</h2>
+
+        <!-- RATING FILTER WIDGET -->
+        <fieldset class="venues-filter-item">
+            <legend class="venues-filter-heading">Minimum Rating</legend>
+
+            <ul>
+                <li class="venues-filter-option" title="5 of 5 stars">
+                    <input value="5" ng-model="ratingFilter" class="venues-filter-input" id="filter-rating-five-star" type="radio" name="venues-filter-rating">
+                    <label class="filter-option-label" for="filter-rating-five-star">
+                        <span rating-static rating="5"></span>
+                        <span class="sr-only">5 of 5 stars</span>
+                    </label>
+                </li>
+
+                <li class="venues-filter-option" title="4 of 5 stars">
+                    <input value="4" ng-model="ratingFilter" class="venues-filter-input" id="filter-rating-four-star" type="radio" name="venues-filter-rating">
+                    <label class="filter-option-label" for="filter-rating-four-star">
+                        <span rating-static rating="4"></span>
+                        <span class="sr-only">4 of 5 stars</span>
+                    </label>
+                </li>
+
+                <li class="venues-filter-option" title="3 of 5 stars">
+                    <input value="3" ng-model="ratingFilter" class="venues-filter-input" id="filter-rating-three-star" type="radio" name="venues-filter-rating">
+                    <label class="filter-option-label" for="filter-rating-three-star">
+                        <span rating-static rating="3"></span>
+                        <span class="sr-only">3 of 5 stars</span>
+                    </label>
+                </li>
+
+                <li class="venues-filter-option" title="2 of 5 stars">
+                    <input value="2" ng-model="ratingFilter" class="venues-filter-input" id="filter-rating-two-star" type="radio" name="venues-filter-rating">
+                    <label class="filter-option-label" for="filter-rating-two-star">
+                        <span rating-static rating="2"></span>
+                        <span class="sr-only">2 of 5 stars</span>
+                    </label>
+                </li>
+
+                <li class="venues-filter-option" title="1 of 5 stars">
+                    <input value="1" ng-model="ratingFilter" class="venues-filter-input" id="filter-rating-one-star" type="radio" name="venues-filter-rating">
+                    <label class="filter-option-label" for="filter-rating-one-star">
+                        <span rating-static rating="1"></span>
+                        <span class="sr-only">1 of 5 stars</span>
+                    </label>
+                </li>
+            </ul>
+
+            <button aria-label="clear rating filter" id="venues-filter-rating-clear-btn" class="venues-filter-btn"
+                    ng-click="clearRatingFilter()" ng-disabled="ratingFilter < 1">
+                clear
+            </button>
+
+        </fieldset>
+
+        <!-- PRICE FILTER WIDGET -->
+        <fieldset class="venues-filter-item">
+            <legend class="venues-filter-heading">Price</legend>
+
+            <ul>
+                <li class="venues-filter-option" title="expensive">
+                    <input ng-model="priceFilter.expensive" class="venues-filter-input" id="filter-rating-three-price" type="checkbox">
+                    <label class="filter-option-label" for="filter-rating-three-price">
+                        <span pricing-static pricing="3"></span>
+                        <span class="sr-only">expensive</span>
+                    </label>
+                </li>
+
+                <li class="venues-filter-option" title="moderately priced">
+                    <input ng-model="priceFilter.moderatelyPriced" class="venues-filter-input" id="filter-rating-two-price" type="checkbox">
+                    <label class="filter-option-label" for="filter-rating-two-price">
+                        <span pricing-static pricing="2"></span>
+                        <span class="sr-only">moderately priced</span>
+                    </label>
+                </li>
+
+                <li class="venues-filter-option" title="cheap">
+                    <input ng-model="priceFilter.inexpensive" class="venues-filter-input" id="filter-rating-one-price" type="checkbox">
+                    <label class="filter-option-label" for="filter-rating-one-price">
+                        <span pricing-static pricing="1"></span>
+                        <span class="sr-only">inexpensive</span>
+                    </label>
+                </li>
+
+            </ul>
+
+            <button aria-label="clear price filter" id="venues-filter-price-clear-btn" class="venues-filter-btn"
+                    ng-click="clearPriceFilter()" ng-disabled="priceFilterBitMask() < 1">
+                clear
+            </button>
+
+        </fieldset>
+
+    </aside>
+
+    <main>
+
+        <!-- VENUES LIST HEADER -->
+        <h2 aria-labelledby="venues-list-filter-title venues-list-filter-rating venues-list-filter-price">
+            <span aria-hidden="true" id="venues-list-filter-title">Restraunts</span>
+            <span aria-hidden="true" id="venues-list-filter-rating" ng-if="hasRatingFilter()" class="venues-filter-breadcrumb">, rated {{ratingFilter}} stars or higher</span>
+            <span aria-hidden="true" id="venues-list-filter-price" ng-if="hasPriceFilter()" class="venues-filter-breadcrumb">, {{priceFilters()}}</span>
+        </h2>
+
+        <!-- VENUES LIST -->
+        <ul id="venues-list">
+
+            <!-- VENUE ITEM -->
+            <li class="venue-item"
+                ng-repeat="venue in venues | venuesFilter:ratingFilter:priceFilterBitMask() track by venue.id"
+                ng-click="selectVenue(venue)">
+
+                <article data-venue-id="{{venue.id}}">
+
+                    <!-- NAME -->
+                    <h3 class="venue-name">{{venue.name}}</h3>
+
+                    <!-- RATING -->
+                    <label class="venue-rating venue-rating-value" for="venue-rating-value-{{venue.id}}">
+                        <span id="venue-rating-value-{{venue.id}}" rating-static rating="venue.rating" title="{{venue.rating}} of 5 stars"></span>
+                        <span class="sr-only">Rated {{venue.rating}} of 5 stars</span>
+                    </label>
+
+                    <!-- PRICING -->
+                    <label class="venue-pricing" for="venue-pricing-value-{{venue.id}}">
+                        <span id="venue-pricing-value-{{venue.id}}" pricing-static pricing="venue.pricing" title="{{venue.pricing | pricing}}"></span>
+                        <span class="sr-only">{{venue.pricing | pricing}}</span>
+                    </label>
+
+                    <!-- IMAGE -->
+                    <img class="venue-image" ng-src="{{venue.imageUrl}}" alt="" aria-hidden="true" />
+
+                    <!-- ADDRESS -->
+                    <address class="venue-address">{{venue.address}}</address>
+
+                </article>
+
+            </li>
+
+        </ul>
+
+        <!-- SELECTED VENUE -->
+        <article class="venue" ng-if="venue" data-venue-id="{{venue.id}}">
+
+            <!-- NAME -->
+            <h3 class="venue-name">{{venue.name}}</h3>
+
+            <!-- RATING -->
+            <label class="venue-rating venue-rating-value" for="venue-rating-value">
+                <span id="venue-rating-value" rating-static rating="$parent.venue.rating" title="{{venue.rating}} of 5 stars"></span>
+                <span class="sr-only">Rated {{venue.rating}} of 5 stars</span>
+            </label>
+
+            <!-- PRICING -->
+            <label class="venue-pricing" for="venue-pricing-value">
+                <span id="venue-pricing-value" pricing-static pricing="$parent.venue.pricing" title="{{venue.pricing | pricing}}"></span>
+                <span class="sr-only">{{venue.pricing | pricing}}</span>
+            </label>
+
+            <!-- IMAGE -->
+            <img class="venue-image" ng-src="{{venue.imageUrl}}" alt="" aria-hidden="true" />
+
+            <!-- ADDRESS -->
+            <address class="venue-address">{{venue.address}}</address>
+
+            <!-- HOURS LIST -->
+            <div>
+                <h4 class="venue-hours-header">HOURS</h4>
+                <ul class="venue-hours-list">
+
+                    <!-- HOURS ITEM -->
+                    <li class="venue-hours-item" ng-repeat="dailyHours in venue.hours" ng-if="dailyHours.open !== ''">
+                        <span class="venue-hours-dow">{{dailyHours.dow | dayOfWeek}}</span>
+                        <time class="venue-hours-open" datetime="{{dailyHours.open}}">{{dailyHours.open}}</time> -
+                        <time class="venue-hours-close" datetime="{{dailyHours.close}}">{{dailyHours.close}}</time>
+                    </li>
+
+                </ul>
+            </div>
+
+            <!-- REVIEWS -->
+            <div>
+
+                <!-- REVIEWS LIST HEADER -->
+                <h4 class="reviews-list-header">REVIEWS</h4>
+
+                <!-- NEW REVIEW FORM -->
+                <div class="review-form">
+
+                    <h4>Leave a review</h4>
+
+                    <form class="review" action="#">
+
+                        <!-- RATING -->
+                        <fieldset>
+                            <legend class="sr-only" for="new-review-rating">Rating</legend>
+
+                            <!-- ReSharper disable Html.TagNotResolved -->
+                            <rating-interactive rating="$parent.newReview.rating"></rating-interactive>
+                            <!-- ReSharper restore Html.TagNotResolved -->
+
+                            <div>Your rating: {{$parent.newReview.rating}} of 5 stars</div>
+
+                        </fieldset>
+
+                        <!-- COMMENTS -->
+                        <fieldset>
+                            <legend class="sr-only" for="new-review-comments">Comments</legend>
+
+                            <textarea ng-model="newReview.comments" id="new-review-comments" placeholder="what do you think of this place?"
+                                      required rows="4" maxlength="1024"></textarea>
+
+                        </fieldset>
+
+                        <!-- SUBMIT BUTTON -->
+                        <button id="new-review-btn-submit" type="button">Submit</button>
+
+                    </form>
+                </div>
+
+                <!-- REVIEWS LIST HEADER -->
+                <h4 class="reviews-list-header">What others are saying</h4>
+
+                <!-- REVIEWS LIST -->
+                <ul class="reviews-list">
+
+                    <!-- REVIEW ITEM -->
+                    <li class="review-item" ng-repeat="review in venue.reviews">
+                        <article class="review">
+
+                            <!-- RATING -->
+                            <label class="venue-rating venue-rating-value" for="venue-rating-value-$index">
+                                <span id="venue-rating-value-$index" rating-static rating="review.rating" title="{{review.rating}} of 5 stars"></span>
+                                <span class="sr-only">Rated {{review.rating}} of 5 stars</span>
+                            </label>
+
+                            <div class="review-reviewer">By {{review.reviewer}}</div>
+
+                            <time class="review-date" datetime="review.date"> on {{review.date}}</time>
+
+                            <div class="review-comments">{{review.comments}}</div>
+
+                        </article>
+                    </li>
+
+                </ul>
+            </div>
+        </article>
+
+    </main>
+
+    <footer class="page-footer"></footer>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <!-- ReSharper disable once Html.PathError -->
+    <script src="js/app.min.js"></script>
+</body>
+</html>
