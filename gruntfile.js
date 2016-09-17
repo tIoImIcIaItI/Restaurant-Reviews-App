@@ -46,7 +46,7 @@ module.exports = function (grunt) {
 			},
 			dist: {
 				files: {
-					'dist/css/app.min.css': [ 'src/css/*.css' ]
+					'dist/css/app.min.css': ['src/css/*.css']
 				}
 			}
 		},
@@ -59,9 +59,13 @@ module.exports = function (grunt) {
 			dist: {
 				src: [
 					'src/js/utils/arrays.js',
-					'src/js/rating.js',
+					'src/js/utils/keys.js',
+					'src/js/utils/objects.js',
+					'src/js/utils/utils.js',
 					'src/js/data.js',
-					'src/js/app.min.js',
+					'src/js/rating.js',
+					'src/js/formviewmodel.js',
+					'src/js/reviewformviewmodel.js',
 					'src/js/app.js'
 				],
 				dest: 'dist/js/app.js'
@@ -103,6 +107,17 @@ module.exports = function (grunt) {
 		watch: {
 			files: 'src/**/*.*',
 			tasks: ['default']
+		},
+
+		// Start a local web server
+		connect: {
+			dist: {
+				options: {
+					port: 8080,
+					base: 'dist',
+					keepalive: true
+				}
+			}
 		}
 
 	});
@@ -115,6 +130,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-htmlmin');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-connect');
 
 
 	// The default task removes any prior build outputs,
@@ -123,6 +139,7 @@ module.exports = function (grunt) {
 	// and copies any remaining content into the distribution folder.
 	grunt.registerTask('default', [
 		'clean',
-		'htmlmin', 'cssmin', 'concat', 'uglify'
+		'htmlmin', 'cssmin', 'concat', 'uglify',
+		'connect'
 	]);
 };
