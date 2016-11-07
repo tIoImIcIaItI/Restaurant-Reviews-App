@@ -140,8 +140,10 @@
 
                     <!-- RATING -->
                     <label class="venue-rating venue-rating-value" for="venue-rating-value-{{venue.id}}">
-                        <span id="venue-rating-value-{{venue.id}}" rating-static rating="venue.rating" title="{{venue.rating}} of 5 stars"></span>
-                        <span class="sr-only">Rated {{venue.rating}} of 5 stars</span>
+                        <!-- ReSharper disable Html.TagNotResolved -->
+                        <rating-static id="venue-rating-value-{{venue.id}}" rating="venue.rating" title="{{venue.rating | rating}}"></rating-static>
+                        <!-- ReSharper restore Html.TagNotResolved -->
+                        <span class="sr-only">{{venue.rating | rating}}</span>
                     </label>
 
                     <!-- PRICING -->
@@ -164,14 +166,18 @@
 
         <!-- SELECTED VENUE -->
         <article class="venue" ng-if="venue" data-venue-id="{{venue.id}}">
+            
+            <!-- BACK BUTTON -->
+            <button id="btn-back" class="" ng-click="deselectVenue()">Back</button>
+            
 
             <!-- NAME -->
             <h3 class="venue-name">{{venue.name}}</h3>
 
             <!-- RATING -->
             <label class="venue-rating venue-rating-value" for="venue-rating-value">
-                <span id="venue-rating-value" rating-static rating="$parent.venue.rating" title="{{venue.rating}} of 5 stars"></span>
-                <span class="sr-only">Rated {{venue.rating}} of 5 stars</span>
+                <span id="venue-rating-value" rating-static rating="$parent.venue.rating" title="{{venue.rating | rating}}"></span>
+                <span class="sr-only">{{venue.rating | rating}}</span>
             </label>
 
             <!-- PRICING -->
@@ -205,41 +211,12 @@
             <div>
 
                 <!-- REVIEWS LIST HEADER -->
-                <h4 class="reviews-list-header">REVIEWS</h4>
+                <h4 class="reviews-list-header">Reviews</h4>
 
                 <!-- NEW REVIEW FORM -->
-                <div class="review-form">
-
-                    <h4>Leave a review</h4>
-
-                    <form class="review" action="#">
-
-                        <!-- RATING -->
-                        <fieldset>
-                            <legend class="sr-only" for="new-review-rating">Rating</legend>
-
-                            <!-- ReSharper disable Html.TagNotResolved -->
-                            <rating-interactive rating="$parent.newReview.rating"></rating-interactive>
-                            <!-- ReSharper restore Html.TagNotResolved -->
-
-                            <div>Your rating: {{$parent.newReview.rating}} of 5 stars</div>
-
-                        </fieldset>
-
-                        <!-- COMMENTS -->
-                        <fieldset>
-                            <legend class="sr-only" for="new-review-comments">Comments</legend>
-
-                            <textarea ng-model="newReview.comments" id="new-review-comments" placeholder="what do you think of this place?"
-                                      required rows="4" maxlength="1024"></textarea>
-
-                        </fieldset>
-
-                        <!-- SUBMIT BUTTON -->
-                        <button id="new-review-btn-submit" type="button">Submit</button>
-
-                    </form>
-                </div>
+                <!-- ReSharper disable Html.TagNotResolved -->
+                <review-form id="review-form" review="$parent.newReview" save="$parent.onSaveReview(review)"></review-form>
+                <!-- ReSharper restore Html.TagNotResolved -->
 
                 <!-- REVIEWS LIST HEADER -->
                 <h4 class="reviews-list-header">What others are saying</h4>
@@ -248,13 +225,15 @@
                 <ul class="reviews-list">
 
                     <!-- REVIEW ITEM -->
-                    <li class="review-item" ng-repeat="review in venue.reviews">
+                    <li class="review-item" ng-repeat="review in venue.reviews | orderBy:'-date'">
                         <article class="review">
 
                             <!-- RATING -->
                             <label class="venue-rating venue-rating-value" for="venue-rating-value-$index">
-                                <span id="venue-rating-value-$index" rating-static rating="review.rating" title="{{review.rating}} of 5 stars"></span>
-                                <span class="sr-only">Rated {{review.rating}} of 5 stars</span>
+                                <!-- ReSharper disable Html.TagNotResolved -->
+                                <rating-static id="venue-rating-value-$index" rating="review.rating" title="{{review.rating | rating}}"></rating-static>
+                                <!-- ReSharper restore Html.TagNotResolved -->
+                                <span class="sr-only">{{review.rating | rating}}</span>
                             </label>
 
                             <div class="review-reviewer">By {{review.reviewer}}</div>
@@ -276,6 +255,8 @@
 
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js" 
+        integrity="sha256-De/cgZoAkgvqoxL9yJpJzPHyozUETFnSv7EQGfQWQ4o=" crossorigin="anonymous"></script>
     <!-- ReSharper disable once Html.PathError -->
     <script src="js/app.min.js"></script>
 </body>

@@ -1,11 +1,14 @@
-﻿var venues = [
+﻿(function (global) {
+	'use strict';
+
+	global.venues = [
 	{
 		id: 1,
 		name: 'Venue 1',
 		imageUrl: 'http://placehold.it/128/aaaaaa',
 		address: '1234 Some Place DR Captitol City, XY',
 		pricing: 2,
-		rating: 4,
+		rating: 5,
 		hours: [
 		{ dow: '1', open: '10:00', close: '13:00' },
 		{ dow: '2', open: '', close: '' },
@@ -50,7 +53,7 @@
 		imageUrl: 'http://placehold.it/128/aaaaaa',
 		address: '5599 Steeplechase DR Longmont, CO 80503',
 		pricing: 3,
-		rating: 5,
+		rating: 3,
 		hours: [
 		{ dow: '1', open: '', close: '' },
 		{ dow: '2', open: '11:00', close: '13:00' },
@@ -63,6 +66,25 @@
 		{ dow: '6', open: '16:00', close: '17:00' },
 		{ dow: '7', open: '', close: '' }
 		],
-		reviews: []
+		reviews: [
+		{
+			rating: 1,
+			reviewer: 'Zapp Brannigan',
+			date: '2014-09-07T20:53:39',
+			comments: 'Viverra nulla, in fringilla posuere. Wisi eget. Donec pellentesque, sed facilisis dui. Pede in egestas, arcu tempor, aenean a dui.'
+		}, {
+			rating: 3,
+			reviewer: 'Turanga Leela',
+			date: '2015-03-21T15:34:09',
+			comments: 'Magna pharetra massa. Ut mauris, orci bibendum, a nostrud massa. Nec lectus interdum, orci dolor, rutrum vulputate. Donec pharetra, nam nulla.'
+		}, {
+			rating: 4,
+			reviewer: 'Foo Bar',
+			date: '2016-05-22T11:15:23',
+			comments: 'Dapibus diam facilisis et risus elementum, dui amet, vivamus suspendisse commodo proin sit nemo augue, et tincidunt suspendisse pharetra sit eleifend etiam, velit curabitur posuere dolor dui in phasellus. In turpis libero magna. Nulla consectetuer. Et sit nulla dictum sit.'
+		}]
 	}
-];
+	];
+
+	// ReSharper disable once ThisInGlobalContext
+}(this));

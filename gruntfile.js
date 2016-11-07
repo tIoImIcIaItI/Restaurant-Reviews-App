@@ -33,7 +33,7 @@ module.exports = function (grunt) {
 				files: [{
 					expand: true,
 					cwd: 'src',
-					src: '*.html',
+					src: '**/*.html',
 					dest: 'dist'
 				}]
 			}
@@ -58,16 +58,32 @@ module.exports = function (grunt) {
 			},
 			dist: {
 				src: [
+					'src/js/utils/math.js',
 					'src/js/utils/arrays.js',
 					'src/js/utils/keys.js',
 					'src/js/utils/objects.js',
 					'src/js/utils/utils.js',
-					'src/js/data.js',
-					'src/js/rating.js',
+
 					'src/js/formviewmodel.js',
-					'src/js/reviewformviewmodel.js',
-					'src/js/app.js'
-				],
+
+					'src/js/data.js',
+
+					'src/js/app.js',
+
+					'src/pricing/pricing-static.js',
+					'src/pricing/pricing-filter.js',
+
+					'src/ratings/rating-interactive.js',
+					'src/ratings/rating-static.js',
+					'src/ratings/rating-filter.js',
+					'src/ratings/rating-widget.js',
+
+					'src/reviews/review-form.js',
+					'src/reviews/reviewformviewmodel.js',
+
+					'src/filters/dayofweek.js',
+					'src/filters/venuesfilter.js'
+			],
 				dest: 'dist/js/app.js'
 			}
 		},

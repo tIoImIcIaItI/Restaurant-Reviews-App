@@ -1,4 +1,7 @@
-﻿* {
+﻿/* ---------------------------------------------------------------------------*/
+/* RESETS */
+
+* {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -26,6 +29,32 @@ li {
 textarea {
 	width:100%;
 	max-width: 20em;
+}
+
+/* ---------------------------------------------------------------------------*/
+/* HELPER AND MIX-IN CLASSES */
+
+.invisible {
+	visibility: hidden;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.block {
+	display: block;
+}
+
+/* -------------------------------------------------------- */
+/* FORMS */
+
+.validation-error {
+    min-height: 1.5em; /* prevent collapse causing sliding content */
+	margin: 0;
+	margin-top: 0.25em;
+	font-style: italic;
 }
 
 /* -------------------------------------------------------- */

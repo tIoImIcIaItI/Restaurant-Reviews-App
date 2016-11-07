@@ -1,18 +1,23 @@
 ﻿.rating-widget {
-	/*background-color: #fff;*/
+    /*background-color: #fff;*/
 }
+
+.rating-digit-container {
+    margin: 0;
+    padding: 6px; /* min-touch-target metrics are absolute in device pixels */
+    cursor: pointer;
+}
+
+    .rating-digit-container:focus {
+        background-color: azure;
+        /*border: 1px dashed black;*/
+        outline: 2px auto -webkit-focus-ring-color;
+    }
+
+    .rating-digit-container.interactive {
+        color: steelblue;
+    }
 
 .rating-digit {
-	margin: 0;
-	padding: 6px; /* min-touch-target metrics are absolute in device pixels */
+    margin: 0;
 }
-
-	.rating-digit.interactive {
-		color: steelblue;
-	}
-
-	.rating-digit:focus {
-		background-color: azure;
-		/*border: 1px dashed black;*/
-		outline: 2px auto -webkit-focus-ring-color;
-	}

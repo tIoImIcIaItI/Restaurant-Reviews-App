@@ -1,0 +1,43 @@
+﻿<div class="review-form">
+
+    <h4>Leave a review</h4>
+
+    <form class="review" action="#" id="new-review-form" novalidate>
+
+        <!-- RATING -->
+        <fieldset>
+            <legend class="sr-only">Rating</legend>
+
+            <label class="sr-only control-label" for="new-review-rating" aria-label="{{$ctrl.review.ratingText()}}"></label>
+
+            <!-- ReSharper disable Html.TagNotResolved -->
+            <rating-interactive id="new-review-rating" ng-model="$ctrl.review.rating" data-value="$ctrl.review.rating" required aria-labelledby="new-review-rating-label"></rating-interactive>
+            <!-- ReSharper restore Html.TagNotResolved -->
+
+            <span id="new-review-rating-label" class="sr-only">{{$ctrl.review.ratingText()}}</span>
+
+            <div id="new-review-rating-error" data-error-for="new-review-rating" class="validation-error text-danger invisible"></div>
+
+        </fieldset>
+
+        <!-- COMMENTS -->
+        <fieldset>
+            <legend class="sr-only">Comments</legend>
+
+            <label class="sr-only control-label" for="new-review-comments" aria-label="Comments"></label>
+
+            <textarea ng-model="$ctrl.review.comments" id="new-review-comments" placeholder="what do you think of this place?"
+                      required rows="4" maxlength="1024"></textarea>
+
+            <div id="new-review-comments-error" data-error-for="new-review-comments" class="validation-error text-danger invisible"></div>
+
+        </fieldset>
+
+        <!-- SUBMIT BUTTON -->
+        <button id="new-review-btn-submit" type="submit" title="Submit my review" aria-describedby="new-review-btn-submit-desc">
+            Submit
+            <span id="new-review-btn-submit-desc" class="sr-only">Submits my review</span>
+        </button>
+
+    </form>
+</div>
