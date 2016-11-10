@@ -38,6 +38,15 @@
 		$scope.venues = venues.map(function (venue) {
 
 			venue.rating = ratingFromReviews(venue.reviews);
+
+			var firstDayOfWeek = 1;
+
+			function sortOrderFor(hours) {
+				return hours.dow > firstDayOfWeek ? hours.dow : 7 + hours.dow;
+			}
+
+			venue.hours = venue.hours.sort(function (x, y) { return sortOrderFor(x) - sortOrderFor(y); });
+
 			return venue;
 		});
 
@@ -80,11 +89,17 @@
 
 			// Show the selected venue
 			$scope.venue = venue;
+
+			// TODO: Scroll to the top of the selected venue? Animate?
+			scrollToTop();
 		}
 
 		$scope.deselectVenue = function() {
 
 			$scope.venue = null;
+
+			// TODO: Scroll to the top of the venue list? Animate?
+			scrollToTop();
 		}
 
 		$scope.priceFilterBitMask = function () {

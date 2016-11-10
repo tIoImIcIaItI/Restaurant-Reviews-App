@@ -29,14 +29,9 @@
 						formEl);
 
 				reviewFormVm.preFormSubmit = function () {
-					// TODO: validate form
-					console.log('preFormSubmit');
+					//console.log('preFormSubmit');
 
-					var isValid = true;
-
-					isValid &= reviewFormVm.updateRatingValidity();
-
-					return isValid;
+					return reviewFormVm.updateValidity();
 				};
 
 				reviewFormVm.onSubmitValid = function () {

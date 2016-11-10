@@ -1,116 +1,276 @@
 ﻿/* ---------------------------------------------------------------------------*/
 /* RESETS */
 
-* {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+html, body {
+    height: 100%;
+    background-color: #fff;
 }
 
-h1, h2, h3, h4, h5, h6 {
-	margin: 0.25em 0;
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*, :before, :after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, legend {
+    margin: 0.25em 0;
+    color: #00aae6;
 }
 
 fieldset {
-	padding: 0;
-	border: none;
+    border: none;
 }
 
 ul, ol {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-li {
-	margin: 0;
+    list-style: none;
+    margin: 0;
 }
 
 textarea {
-	width:100%;
-	max-width: 20em;
+    width: 100%;
 }
+
+/* ---------------------------------------------------------------------------*/
+/* BOOTSTRAP OVERRIDES */
+
+.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+
+.row {
+    margin: 0;
+    padding: 0;
+}
+
+address {
+    line-height: initial;
+}
+
+.btn-link {
+    padding-left: 0;
+}
+
+.btn.outline {
+    background: none;
+    /*padding: 0.5em 1em;*/
+}
+
+.btn-primary.outline {
+    border: 2px solid #00aae6;
+    color: #00aae6;
+}
+
+    .btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
+        color: #33a6cc;
+        border-color: #33a6cc;
+    }
+
+    .btn-primary.outline:active, .btn-primary.outline.active {
+        border-color: #007299;
+        color: #fff;
+        background-color: #337ab7;
+        box-shadow: none;
+    }
 
 /* ---------------------------------------------------------------------------*/
 /* HELPER AND MIX-IN CLASSES */
 
 .invisible {
-	visibility: hidden;
+    visibility: hidden;
 }
 
 .center {
-	margin-left: auto;
-	margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .block {
-	display: block;
+    display: block;
+}
+
+/*.clear {
+    clear: both;
+}*/
+
+/* -------------------------------------------------------- */
+/* GENERAL */
+
+html {
+    overflow-y: scroll;
+    min-height: 100%;
+    margin: 0;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-overflow-scrolling: touch;
+}
+
+body {
+    min-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body, textarea, input, select, option, button {
+    color: #666;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    line-height: 1.675;
+}
+
+article, aside, details, div, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+    display: block;
+}
+
+.root {
+    height: 100%;
+}
+
+/* -------------------------------------------------------- */
+/* HEADER */
+
+.page-header {
+    width: 100%;
+    margin: 0;
+    padding: 1em;
+    color: #fff;
+    background: linear-gradient(135deg, #47c4f0 0%,#9fe3fd 100%);
+}
+
+.page-header-text {
+    color: #fff;
+    font-size: 4em;
+    font-weight: 300;
+}
+
+.tag-line-text {
+    font-size: 1.25em;
+    margin-left: 1.25em;
 }
 
 /* -------------------------------------------------------- */
 /* FORMS */
 
 .validation-error {
-    min-height: 1.5em; /* prevent collapse causing sliding content */
-	margin: 0;
-	margin-top: 0.25em;
-	font-style: italic;
+    font-size: 1em;
+    line-height: 1.2em;
+    min-height: 1.2em; /* prevent collapse causing sliding content */
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0.2em;
+    font-style: italic;
 }
 
 /* -------------------------------------------------------- */
 /* FILTER WIDGETS */
+
+.venues-filter-list-toggle {
+    float: right;
+}
+
+.venues-filter-list {
+    background-color: #efefef;
+}
+
+.filters-list {
+    float: right;
+    padding: 1em;
+}
+
+.venues-filter-item {
+    float: right;
+    margin: 1em;
+    margin-right: 0.5em;
+}
+
 .filter-option-label .fa {
-	font-size: 0.8em;
+    /*font-size: 0.8em;*/
+}
+
+.venues-filter-heading {
+    /*color: #00aae6;*/
 }
 
 .venues-filter-btn {
-	margin-left: 1em;
+    /*margin-left: 1em;*/
 }
 
 /* -------------------------------------------------------- */
 /* VENUES LIST */
 .venues-filter-input {
-	margin: 0;
+    margin: 0;
 }
 
 .venue-item {
-	display: inline-block;
-	padding: 1em;
-	border: 1px solid #ccc;
-	margin: 1em;
-	margin-left: 0;
+    display: block;
+    padding: 1em;
+    width: 100%;
+    margin: 0.5em 0;
+    border-bottom: 1px solid #e5e5e5;
+    vertical-align: top;
 }
 
 /* -------------------------------------------------------- */
 /* VENUE CARD */
 
 .venue {
-	padding: 1em;
-	border: 1px solid #ccc;
+    padding: 1em;
 }
 
 .venue-name {
-	margin: 0.25em 0;
+    /*color: #00aae6;*/
+    margin: 0.25em 0;
+    font-weight: 300;
+}
+
+.venue-rating, .venue-pricing {
+    margin: 0 0.5em 0 0;
 }
 
 .venue-image {
-	display: block;
+    width: 5em;
+    display: inline-block;
+    float: left;
+    margin-right: 1em;
+}
+
+.venue-hours-list {
+    clear: both;
 }
 
 .venue-hours-dow {
-	display: inline-block;
-	width: 2em;
+    display: inline-block;
+    width: 2.5em;
+    font-weight: bold;
+}
+
+/* -------------------------------------------------------- */
+/* REVIEW FORM */
+.review-form {
+    margin-bottom: 1em;
+}
+
+
+/* -------------------------------------------------------- */
+/* REVIEWS LIST */
+.reviews-list {
+    max-width: 40em;
 }
 
 /* -------------------------------------------------------- */
 /* REVIEW CARD */
 
 .review-item {
-	/*margin: 1em;*/
+    margin-bottom: 1em;
 }
 
 .review-comments:before {
-	/*content: '“';
+    /*content: '“';
 	font-size: 2em;
 	margin-top: -1em;*/
 }
@@ -118,7 +278,66 @@ textarea {
 /* -------------------------------------------------------- */
 /* MEDIA QUERIES */
 
-@media screen and (min-width:1024px) {
+@media screen and (max-width:424px) {
+}
 
+@media screen and (max-width:767px) {
 
+    legend {
+        font-size: 1.15em;
+    }
+
+    .page-header-text {
+        font-size: 2.4em;
+        font-weight: 300;
+    }
+
+    .tag-line-text {
+        font-size: 1em;
+        margin-left: 1em;
+    }
+
+    .venue {
+        padding: 1em;
+    }
+}
+
+@media screen and (min-width:425px) {
+}
+
+@media screen and (min-width:768px) {
+
+    .container-fluid {
+        max-width: 64em;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /*body {
+        max-width: 120em;
+        margin-left: auto;
+        margin-right: auto;
+    }*/
+
+    .page-header {
+        max-width: 64em;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .venues-filter-list-toggle {
+        font-size: 1em;
+    }
+
+    .venue-item {
+        display: inline-block;
+        width: 20em;
+        margin-right: 0.5em;
+        height: 12em;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+
+    textarea {
+        max-width: 40em;
+    }
 }

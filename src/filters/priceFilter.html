@@ -1,0 +1,37 @@
+﻿<!-- PRICE FILTER WIDGET -->
+<fieldset class="venues-filter-item">
+    <legend class="venues-filter-heading">Price</legend>
+
+    <ul>
+        <li class="venues-filter-option" title="expensive">
+            <input ng-model="priceFilter.expensive" class="venues-filter-input" id="filter-rating-three-price" type="checkbox">
+            <label class="filter-option-label" for="filter-rating-three-price">
+                <span pricing-static pricing="3"></span>
+                <span class="sr-only">expensive</span>
+            </label>
+        </li>
+
+        <li class="venues-filter-option" title="moderately priced">
+            <input ng-model="priceFilter.moderatelyPriced" class="venues-filter-input" id="filter-rating-two-price" type="checkbox">
+            <label class="filter-option-label" for="filter-rating-two-price">
+                <span pricing-static pricing="2"></span>
+                <span class="sr-only">moderately priced</span>
+            </label>
+        </li>
+
+        <li class="venues-filter-option" title="cheap">
+            <input ng-model="priceFilter.inexpensive" class="venues-filter-input" id="filter-rating-one-price" type="checkbox">
+            <label class="filter-option-label" for="filter-rating-one-price">
+                <span pricing-static pricing="1"></span>
+                <span class="sr-only">inexpensive</span>
+            </label>
+        </li>
+
+    </ul>
+
+    <button aria-label="clear price filter" id="venues-filter-price-clear-btn" class="btn btn-sm btn-link venues-filter-btn"
+            ng-click="clearPriceFilter()" ng-disabled="priceFilterBitMask() < 1">
+        clear
+    </button>
+
+</fieldset>

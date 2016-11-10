@@ -18,6 +18,9 @@
 		self.ratingEl =
 			document.getElementById('new-review-rating');
 
+		self.commentsEl =
+			document.getElementById('new-review-comments');
+
 		self.isValidRating = function (rating) {
 
 			return rating && !isNaN(rating) && rating >= 1 && rating <= 5; // TODO: configure min, max rating
@@ -36,6 +39,20 @@
 				self.passInput(self.ratingEl) :
 				self.failInput(self.ratingEl, 'Please provide a rating.');
 		}
+
+		self.updateValidity = function() {
+
+			var isValid = true;
+
+			isValid &= self.updateRatingValidity();
+
+			// TODO: ensure comments are validated here also
+			//isValid &= self.isValid(self.commentsEl);
+
+			return isValid;
+		}
+
+		// TODO: update rating validity when rating changes
 
 		// Custom validate the rating input on blur
 		self.ratingEl.addEventListener(

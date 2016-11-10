@@ -82,7 +82,11 @@ module.exports = function (grunt) {
 					'src/reviews/reviewformviewmodel.js',
 
 					'src/filters/dayofweek.js',
-					'src/filters/venuesfilter.js'
+					'src/filters/venuesfilter.js',
+					'src/filters/rating-filter.js',
+					'src/filters/price-filter.js',
+
+					'src/venues/venue.js'
 			],
 				dest: 'dist/js/app.js'
 			}

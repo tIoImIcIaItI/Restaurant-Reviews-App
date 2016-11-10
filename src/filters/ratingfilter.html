@@ -1,0 +1,52 @@
+﻿<!-- RATING FILTER WIDGET -->
+<fieldset class="venues-filter-item">
+    <legend class="venues-filter-heading">Minimum Rating</legend>
+
+    <ul>
+        <li class="venues-filter-option" title="5 of 5 stars">
+            <input value="5" ng-model="$parent.ratingFilter" class="venues-filter-input" id="filter-rating-five-star" type="radio" name="venues-filter-rating">
+            <label class="filter-option-label" for="filter-rating-five-star">
+                <span rating-static rating="5"></span>
+                <span class="sr-only">5 of 5 stars</span>
+            </label>
+        </li>
+
+        <li class="venues-filter-option" title="4 of 5 stars">
+            <input value="4" ng-model="$parent.ratingFilter" class="venues-filter-input" id="filter-rating-four-star" type="radio" name="venues-filter-rating">
+            <label class="filter-option-label" for="filter-rating-four-star">
+                <span rating-static rating="4"></span>
+                <span class="sr-only">4 of 5 stars</span>
+            </label>
+        </li>
+
+        <li class="venues-filter-option" title="3 of 5 stars">
+            <input value="3" ng-model="$parent.ratingFilter" class="venues-filter-input" id="filter-rating-three-star" type="radio" name="venues-filter-rating">
+            <label class="filter-option-label" for="filter-rating-three-star">
+                <span rating-static rating="3"></span>
+                <span class="sr-only">3 of 5 stars</span>
+            </label>
+        </li>
+
+        <li class="venues-filter-option" title="2 of 5 stars">
+            <input value="2" ng-model="$parent.ratingFilter" class="venues-filter-input" id="filter-rating-two-star" type="radio" name="venues-filter-rating">
+            <label class="filter-option-label" for="filter-rating-two-star">
+                <span rating-static rating="2"></span>
+                <span class="sr-only">2 of 5 stars</span>
+            </label>
+        </li>
+
+        <li class="venues-filter-option" title="1 of 5 stars">
+            <input value="1" ng-model="$parent.ratingFilter" class="venues-filter-input" id="filter-rating-one-star" type="radio" name="venues-filter-rating">
+            <label class="filter-option-label" for="filter-rating-one-star">
+                <span rating-static rating="1"></span>
+                <span class="sr-only">1 of 5 stars</span>
+            </label>
+        </li>
+    </ul>
+
+    <button aria-label="clear rating filter" id="venues-filter-rating-clear-btn" class="btn btn-sm btn-link venues-filter-btn"
+            ng-click="clearRatingFilter()" ng-disabled="ratingFilter < 1">
+        clear
+    </button>
+
+</fieldset>

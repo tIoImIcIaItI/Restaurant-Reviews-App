@@ -2,261 +2,200 @@
 <html>
 <head lang="en-us">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Restraunt Reviewer</title>
     <meta name="description" content="Udacity Restraunt Reviewer Project">
     <meta name="author" content="David J. King">
 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://use.fontawesome.com/59942f4bda.js"></script>
+
     <!-- ReSharper disable once Html.PathError -->
     <link rel="stylesheet" href="css/app.min.css" />
 </head>
-<body ng-app="app" ng-strict-di ng-controller="AppController">
+<body ng-app="app" ng-strict-di ng-controller="AppController" class="">
 
     <!-- PAGE HEADER -->
     <header class="page-header">
         <h1 class="page-header-text">Restraunt Reviewer</h1>
+        <span class="tag-line-text">food goes in, opinions come out</span>
+        
+        <button id="venues-filter-list-toggle" class="btn btn-primary outline btn-sm venues-filter-list-toggle" data-toggle="button"
+                ng-if="!venue" ng-click="$parent.showFilters = !$parent.showFilters">
+            <i class="fa fa-filter" aria-hidden="true"></i>
+        </button>
     </header>
 
-    <!-- VENUE FILTERS -->
-    <aside class="venues-filter-list">
+    <div class="container-fluid root">
 
-        <!-- FILTERS HEADER -->
-        <h2 class="venues-filter-list-header">Refine by</h2>
+        <!-- VENUE FILTERS -->
+        <aside class="venues-filter-list row" ng-if="!venue && showFilters">
 
-        <!-- RATING FILTER WIDGET -->
-        <fieldset class="venues-filter-item">
-            <legend class="venues-filter-heading">Minimum Rating</legend>
+            <div class="filters-list">
 
-            <ul>
-                <li class="venues-filter-option" title="5 of 5 stars">
-                    <input value="5" ng-model="ratingFilter" class="venues-filter-input" id="filter-rating-five-star" type="radio" name="venues-filter-rating">
-                    <label class="filter-option-label" for="filter-rating-five-star">
-                        <span rating-static rating="5"></span>
-                        <span class="sr-only">5 of 5 stars</span>
-                    </label>
-                </li>
+                <!-- FILTERS HEADER -->
+                <h2 class="venues-filter-list-header sr-only">Refine by</h2>
 
-                <li class="venues-filter-option" title="4 of 5 stars">
-                    <input value="4" ng-model="ratingFilter" class="venues-filter-input" id="filter-rating-four-star" type="radio" name="venues-filter-rating">
-                    <label class="filter-option-label" for="filter-rating-four-star">
-                        <span rating-static rating="4"></span>
-                        <span class="sr-only">4 of 5 stars</span>
-                    </label>
-                </li>
-
-                <li class="venues-filter-option" title="3 of 5 stars">
-                    <input value="3" ng-model="ratingFilter" class="venues-filter-input" id="filter-rating-three-star" type="radio" name="venues-filter-rating">
-                    <label class="filter-option-label" for="filter-rating-three-star">
-                        <span rating-static rating="3"></span>
-                        <span class="sr-only">3 of 5 stars</span>
-                    </label>
-                </li>
-
-                <li class="venues-filter-option" title="2 of 5 stars">
-                    <input value="2" ng-model="ratingFilter" class="venues-filter-input" id="filter-rating-two-star" type="radio" name="venues-filter-rating">
-                    <label class="filter-option-label" for="filter-rating-two-star">
-                        <span rating-static rating="2"></span>
-                        <span class="sr-only">2 of 5 stars</span>
-                    </label>
-                </li>
-
-                <li class="venues-filter-option" title="1 of 5 stars">
-                    <input value="1" ng-model="ratingFilter" class="venues-filter-input" id="filter-rating-one-star" type="radio" name="venues-filter-rating">
-                    <label class="filter-option-label" for="filter-rating-one-star">
-                        <span rating-static rating="1"></span>
-                        <span class="sr-only">1 of 5 stars</span>
-                    </label>
-                </li>
-            </ul>
-
-            <button aria-label="clear rating filter" id="venues-filter-rating-clear-btn" class="venues-filter-btn"
-                    ng-click="clearRatingFilter()" ng-disabled="ratingFilter < 1">
-                clear
-            </button>
-
-        </fieldset>
-
-        <!-- PRICE FILTER WIDGET -->
-        <fieldset class="venues-filter-item">
-            <legend class="venues-filter-heading">Price</legend>
-
-            <ul>
-                <li class="venues-filter-option" title="expensive">
-                    <input ng-model="priceFilter.expensive" class="venues-filter-input" id="filter-rating-three-price" type="checkbox">
-                    <label class="filter-option-label" for="filter-rating-three-price">
-                        <span pricing-static pricing="3"></span>
-                        <span class="sr-only">expensive</span>
-                    </label>
-                </li>
-
-                <li class="venues-filter-option" title="moderately priced">
-                    <input ng-model="priceFilter.moderatelyPriced" class="venues-filter-input" id="filter-rating-two-price" type="checkbox">
-                    <label class="filter-option-label" for="filter-rating-two-price">
-                        <span pricing-static pricing="2"></span>
-                        <span class="sr-only">moderately priced</span>
-                    </label>
-                </li>
-
-                <li class="venues-filter-option" title="cheap">
-                    <input ng-model="priceFilter.inexpensive" class="venues-filter-input" id="filter-rating-one-price" type="checkbox">
-                    <label class="filter-option-label" for="filter-rating-one-price">
-                        <span pricing-static pricing="1"></span>
-                        <span class="sr-only">inexpensive</span>
-                    </label>
-                </li>
-
-            </ul>
-
-            <button aria-label="clear price filter" id="venues-filter-price-clear-btn" class="venues-filter-btn"
-                    ng-click="clearPriceFilter()" ng-disabled="priceFilterBitMask() < 1">
-                clear
-            </button>
-
-        </fieldset>
-
-    </aside>
-
-    <main>
-
-        <!-- VENUES LIST HEADER -->
-        <h2 aria-labelledby="venues-list-filter-title venues-list-filter-rating venues-list-filter-price">
-            <span aria-hidden="true" id="venues-list-filter-title">Restraunts</span>
-            <span aria-hidden="true" id="venues-list-filter-rating" ng-if="hasRatingFilter()" class="venues-filter-breadcrumb">, rated {{ratingFilter}} stars or higher</span>
-            <span aria-hidden="true" id="venues-list-filter-price" ng-if="hasPriceFilter()" class="venues-filter-breadcrumb">, {{priceFilters()}}</span>
-        </h2>
-
-        <!-- VENUES LIST -->
-        <ul id="venues-list">
-
-            <!-- VENUE ITEM -->
-            <li class="venue-item"
-                ng-repeat="venue in venues | venuesFilter:ratingFilter:priceFilterBitMask() track by venue.id"
-                ng-click="selectVenue(venue)">
-
-                <article data-venue-id="{{venue.id}}">
-
-                    <!-- NAME -->
-                    <h3 class="venue-name">{{venue.name}}</h3>
-
-                    <!-- RATING -->
-                    <label class="venue-rating venue-rating-value" for="venue-rating-value-{{venue.id}}">
-                        <!-- ReSharper disable Html.TagNotResolved -->
-                        <rating-static id="venue-rating-value-{{venue.id}}" rating="venue.rating" title="{{venue.rating | rating}}"></rating-static>
-                        <!-- ReSharper restore Html.TagNotResolved -->
-                        <span class="sr-only">{{venue.rating | rating}}</span>
-                    </label>
-
-                    <!-- PRICING -->
-                    <label class="venue-pricing" for="venue-pricing-value-{{venue.id}}">
-                        <span id="venue-pricing-value-{{venue.id}}" pricing-static pricing="venue.pricing" title="{{venue.pricing | pricing}}"></span>
-                        <span class="sr-only">{{venue.pricing | pricing}}</span>
-                    </label>
-
-                    <!-- IMAGE -->
-                    <img class="venue-image" ng-src="{{venue.imageUrl}}" alt="" aria-hidden="true" />
-
-                    <!-- ADDRESS -->
-                    <address class="venue-address">{{venue.address}}</address>
-
-                </article>
-
-            </li>
-
-        </ul>
-
-        <!-- SELECTED VENUE -->
-        <article class="venue" ng-if="venue" data-venue-id="{{venue.id}}">
-            
-            <!-- BACK BUTTON -->
-            <button id="btn-back" class="" ng-click="deselectVenue()">Back</button>
-            
-
-            <!-- NAME -->
-            <h3 class="venue-name">{{venue.name}}</h3>
-
-            <!-- RATING -->
-            <label class="venue-rating venue-rating-value" for="venue-rating-value">
-                <span id="venue-rating-value" rating-static rating="$parent.venue.rating" title="{{venue.rating | rating}}"></span>
-                <span class="sr-only">{{venue.rating | rating}}</span>
-            </label>
-
-            <!-- PRICING -->
-            <label class="venue-pricing" for="venue-pricing-value">
-                <span id="venue-pricing-value" pricing-static pricing="$parent.venue.pricing" title="{{venue.pricing | pricing}}"></span>
-                <span class="sr-only">{{venue.pricing | pricing}}</span>
-            </label>
-
-            <!-- IMAGE -->
-            <img class="venue-image" ng-src="{{venue.imageUrl}}" alt="" aria-hidden="true" />
-
-            <!-- ADDRESS -->
-            <address class="venue-address">{{venue.address}}</address>
-
-            <!-- HOURS LIST -->
-            <div>
-                <h4 class="venue-hours-header">HOURS</h4>
-                <ul class="venue-hours-list">
-
-                    <!-- HOURS ITEM -->
-                    <li class="venue-hours-item" ng-repeat="dailyHours in venue.hours" ng-if="dailyHours.open !== ''">
-                        <span class="venue-hours-dow">{{dailyHours.dow | dayOfWeek}}</span>
-                        <time class="venue-hours-open" datetime="{{dailyHours.open}}">{{dailyHours.open}}</time> -
-                        <time class="venue-hours-close" datetime="{{dailyHours.close}}">{{dailyHours.close}}</time>
-                    </li>
-
-                </ul>
-            </div>
-
-            <!-- REVIEWS -->
-            <div>
-
-                <!-- REVIEWS LIST HEADER -->
-                <h4 class="reviews-list-header">Reviews</h4>
-
-                <!-- NEW REVIEW FORM -->
                 <!-- ReSharper disable Html.TagNotResolved -->
-                <review-form id="review-form" review="$parent.newReview" save="$parent.onSaveReview(review)"></review-form>
+                <rating-filter></rating-filter>
+                <price-filter></price-filter>
                 <!-- ReSharper restore Html.TagNotResolved -->
 
-                <!-- REVIEWS LIST HEADER -->
-                <h4 class="reviews-list-header">What others are saying</h4>
+            </div>
 
-                <!-- REVIEWS LIST -->
-                <ul class="reviews-list">
+        </aside>
 
-                    <!-- REVIEW ITEM -->
-                    <li class="review-item" ng-repeat="review in venue.reviews | orderBy:'-date'">
-                        <article class="review">
+        <main class="">
+
+            <div class="" ng-if="!venue">
+
+                <!-- VENUES LIST HEADER -->
+                <span class="" aria-labelledby="venues-list-filter-title venues-list-filter-rating venues-list-filter-price">
+                    <span aria-hidden="true" id="venues-list-filter-title">Restraunts</span>
+                    <span aria-hidden="true" id="venues-list-filter-rating" ng-if="hasRatingFilter()" class="venues-filter-breadcrumb"> rated {{ratingFilter}} stars or higher</span>
+                    <span aria-hidden="true" id="venues-list-filter-price" ng-if="hasPriceFilter()" class="venues-filter-breadcrumb"> {{priceFilters()}}</span>
+                </span>
+
+                <!-- VENUES LIST -->
+                <ul id="venues-list" aria-live="polite" aria-relevant="additions removals">
+
+                    <!-- VENUE ITEM -->
+                    <li class="venue-item"
+                        ng-repeat="venue in venues | venuesFilter:ratingFilter:priceFilterBitMask() track by venue.id"
+                        ng-click="selectVenue(venue)">
+
+                        <article data-venue-id="{{venue.id}}">
+
+                            <!-- NAME -->
+                            <h3 class="venue-name">{{venue.name}}</h3>
 
                             <!-- RATING -->
-                            <label class="venue-rating venue-rating-value" for="venue-rating-value-$index">
+                            <label class="venue-rating venue-rating-value" for="venue-rating-value-{{venue.id}}">
                                 <!-- ReSharper disable Html.TagNotResolved -->
-                                <rating-static id="venue-rating-value-$index" rating="review.rating" title="{{review.rating | rating}}"></rating-static>
+                                <rating-static id="venue-rating-value-{{venue.id}}" rating="venue.rating" title="{{venue.rating | rating}}"></rating-static>
                                 <!-- ReSharper restore Html.TagNotResolved -->
-                                <span class="sr-only">{{review.rating | rating}}</span>
+                                <span class="sr-only">{{venue.rating | rating}}</span>
                             </label>
 
-                            <div class="review-reviewer">By {{review.reviewer}}</div>
+                            <!-- PRICING -->
+                            <label class="venue-pricing" for="venue-pricing-value-{{venue.id}}">
+                                <span id="venue-pricing-value-{{venue.id}}" pricing-static pricing="venue.pricing" title="{{venue.pricing | pricing}}"></span>
+                                <span class="sr-only">{{venue.pricing | pricing}}</span>
+                            </label>
 
-                            <time class="review-date" datetime="review.date"> on {{review.date}}</time>
+                            <!-- IMAGE -->
+                            <img class="venue-image" ng-src="{{venue.imageUrl}}" alt="" aria-hidden="true" />
 
-                            <div class="review-comments">{{review.comments}}</div>
-
+                            <!-- ADDRESS -->
+                            <address class="venue-address">{{venue.address}}</address>
+                            
                         </article>
+
                     </li>
 
                 </ul>
-            </div>
-        </article>
 
-    </main>
+            </div>
+
+            <!-- SELECTED VENUE -->
+            <article class="venue row" ng-if="venue" data-venue-id="{{venue.id}}" aria-live="polite">
+
+                <!-- BACK BUTTON -->
+                <button id="btn-back" class="btn" ng-click="deselectVenue()">Back</button>
+
+
+                <!-- NAME -->
+                <h3 class="venue-name">{{venue.name}}</h3>
+
+                <!-- RATING -->
+                <label class="venue-rating venue-rating-value" for="venue-rating-value">
+                    <span id="venue-rating-value" rating-static rating="$parent.venue.rating" title="{{venue.rating | rating}}"></span>
+                    <span class="sr-only">{{venue.rating | rating}}</span>
+                </label>
+
+                <!-- PRICING -->
+                <label class="venue-pricing" for="venue-pricing-value">
+                    <span id="venue-pricing-value" pricing-static pricing="$parent.venue.pricing" title="{{venue.pricing | pricing}}"></span>
+                    <span class="sr-only">{{venue.pricing | pricing}}</span>
+                </label>
+
+                <!-- IMAGE -->
+                <img class="venue-image" ng-src="{{venue.imageUrl}}" alt="" aria-hidden="true" />
+
+                <!-- ADDRESS -->
+                <address class="venue-address">{{venue.address}}</address>
+
+                <!-- HOURS LIST -->
+                <div>
+                    <h4 class="venue-hours-header sr-only">HOURS</h4>
+                    <ul class="venue-hours-list">
+
+                        <!-- HOURS ITEM -->
+                        <li class="venue-hours-item" ng-repeat="dailyHours in venue.hours" ng-if="dailyHours.open !== ''">
+                            <span class="venue-hours-dow">{{dailyHours.dow | dayOfWeek}}</span>
+                            <time class="venue-hours-open" datetime="{{dailyHours.open}}">{{dailyHours.open}}</time> -
+                            <time class="venue-hours-close" datetime="{{dailyHours.close}}">{{dailyHours.close}}</time>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <!-- REVIEWS -->
+                <div>
+
+                    <!-- REVIEWS LIST HEADER -->
+                    <h4 class="reviews-list-header sr-only">Reviews</h4>
+
+                    <!-- NEW REVIEW FORM -->
+                    <!-- ReSharper disable Html.TagNotResolved -->
+                    <review-form id="review-form" review="$parent.newReview" save="$parent.onSaveReview(review)"></review-form>
+                    <!-- ReSharper restore Html.TagNotResolved -->
+                    <!-- REVIEWS LIST HEADER -->
+                    <h4 class="reviews-list-header sr-only">What others are saying</h4>
+
+                    <!-- REVIEWS LIST -->
+                    <ul class="reviews-list">
+
+                        <!-- REVIEW ITEM -->
+                        <li class="review-item" ng-repeat="review in venue.reviews | orderBy:'-date'">
+                            <article class="review">
+
+                                <!-- RATING -->
+                                <label class="venue-rating venue-rating-value" for="venue-rating-value-$index">
+                                    <!-- ReSharper disable Html.TagNotResolved -->
+                                    <rating-static id="venue-rating-value-$index" rating="review.rating" title="{{review.rating | rating}}"></rating-static>
+                                    <!-- ReSharper restore Html.TagNotResolved -->
+                                    <span class="sr-only">{{review.rating | rating}}</span>
+                                </label>
+
+                                <div class="review-reviewer">By {{review.reviewer}}</div>
+
+                                <time class="review-date" datetime="review.date"> on {{review.date}}</time>
+
+                                <div class="review-comments">{{review.comments}}</div>
+
+                            </article>
+                        </li>
+
+                    </ul>
+                </div>
+            </article>
+
+        </main>
+    </div>
 
     <footer class="page-footer"></footer>
 
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js" 
-        integrity="sha256-De/cgZoAkgvqoxL9yJpJzPHyozUETFnSv7EQGfQWQ4o=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"
+            integrity="sha256-De/cgZoAkgvqoxL9yJpJzPHyozUETFnSv7EQGfQWQ4o=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <!-- ReSharper disable once Html.PathError -->
     <script src="js/app.min.js"></script>
 </body>
